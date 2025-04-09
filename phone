@@ -1,0 +1,14 @@
+#!/bin/bash
+
+DATAFILE="mydata.txt"
+
+if [ $# -lt 1 ]; then
+    echo "Usage: phone searchfor [...searchfor]"
+    echo "(You didn't tell me what you want to search for.)"
+    exit 1
+fi
+
+PATTERN=$(printf "|%s" "$@")
+PATTERN="${PATTERN:1}"
+
+grep -iE "$PATTERN" "$DATAFILE" | awk -F '|' -f display.awk
